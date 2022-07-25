@@ -1,31 +1,34 @@
 //Run clock
 currentTime();
-setInterval(currentTime, 1000);
+//Run getting the timeblock
+setInterval(currentTimeBlock, 1000);
 
 //Current Date and Time
 function currentTime() {
   var currentTime = document.querySelector("#currentDay");
   var now = moment().format("dddd, MMMM Do YYYY, h:mm a");
 
-  console.log(now); //check that it works
+  //console.log(now); //check that it works
 
   currentTime.textContent = now;
 }
 
-setInterval(currentTimeBlock, 60000); //calls by minute for clarity on console log
+//setInterval(currentTimeBlock, 60000); //calls by minute for clarity on console log
 
 //show current time on the divs
 
 function currentTimeBlock() {
   const baseTime = 8;
 
-  var timeBlockEl = document.querySelector(".time-block");
+  var timeBlockEl = document.getElementsbyClassName("time-block");
   var timeBlockCount = timeBlockEl.length;
-  var timeSegments = map(timeBlockCount);
+  var timeSegments = new Array(timeBlockCount);
+
+  console.log(timeBlockCount);
 
   // getting the current time
-  var currentHour = moment().format("h");
-  console.log(currentHour);
+  var currentTime = new Date();
+  var currentHour = currentTime.getHours();
 
   for (var i = 0; i < timeBlockCount; i++) {
     timeSegments[i] = baseTime + i;
@@ -49,7 +52,7 @@ function currentTimeBlock() {
 
 //show an enterable field for adding info
 //Functional save button
-var eventTextField = document.querySelector("time-block-text").value;
+var eventTextField = document.getElementsByName("time-block-text").value;
 var timeBlock = document.getElementById("time-block");
 var saveBtn = document.getElementById("saveBtn");
 saveBtn.addEventListener("click", getEventText);
