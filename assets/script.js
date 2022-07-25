@@ -1,69 +1,67 @@
 //Run clock
-currentTime()
-setInterval(currentTime, 1000)
-
+currentTime();
+setInterval(currentTime, 1000);
 
 //Current Date and Time
 function currentTime() {
-    var currentTime = document.querySelector('#currentDay');
-    var now = moment().format('dddd, MMMM Do YYYY, h:mm a');
+  var currentTime = document.querySelector("#currentDay");
+  var now = moment().format("dddd, MMMM Do YYYY, h:mm a");
 
-    console.log(now) //check that it works
+  console.log(now); //check that it works
 
-    currentTime.textContent = now
+  currentTime.textContent = now;
 }
 
+setInterval(currentTimeBlock, 60000); //calls by minute for clarity on console log
 
 //show current time on the divs
 
+function currentTimeBlock() {
+  const baseTime = 8;
 
-setInterval(highlightTime, 60000) //calls by minute for clarity on console log
-function highlightTime() {
-    var hourNow = moment().format('hh')
-    console.log(hourNow)
+  var timeBlockEl = document.querySelector(".time-block");
+  var timeBlockCount = timeBlockEl.length;
+  var timeSegments = map(timeBlockCount);
 
-    var timeTableArray = [
-        eightam = 08,
-        nineam = 09,
-        tenam = 10,
-        elevenam = 11,
-        twelvepm = 12,
-        onepm = 01,
-        twopm = 02,
-        threepm = 03,
-        fourpm = 04,
-        fivepm = 05,
-        sixpm = 06
-    ]
+  // getting the current time
+  var currentHour = moment().format("h");
+  console.log(currentHour);
 
-    //compare real time and change div class so past, present, future class styles are visible
-    if (hourNow === timeTableArray) {
-        //if the time is current, change the p tag element to an input - <input class="col-8 time-block present" id="time-block">
+  for (var i = 0; i < timeBlockCount; i++) {
+    timeSegments[i] = baseTime + i;
+  }
+
+  for (var j = 0; j < timeBlockCount; j++) {
+    var scheduleHour = timeSegments[j];
+    var scheduleBlockClass = timeBlockEl[j].classList;
+
+    if (currentHour < scheduleHour) {
+      scheduleBlockClass.toggle("future", true);
+    } else if (currentHour > ScheduleHour) {
+      scheduleBlockClass.toggle("past", true);
+      scheduleBlockClass.toggle("present", false);
+    } else {
+      scheduleBlockClass.toggle("present", true);
+      scheduleBlockClass.toggle("future", false);
     }
+  }
 }
-
 
 //show an enterable field for adding info
-
-
-
-
 //Functional save button
-var eventTextField = document.getElementsbyName('time-block-text').value
-var timeBlock = document.getElementById('time-block')
-var saveBtn = document.getElementById('saveBtn')
-saveBtn.addEventListener('click', getEventText)
+var eventTextField = document.querySelector("time-block-text").value;
+var timeBlock = document.getElementById("time-block");
+var saveBtn = document.getElementById("saveBtn");
+saveBtn.addEventListener("click", getEventText);
 
 function getEventText() {
-    // if (eventTextField === null) {
-    //     alert("Oops! It looks like there wasn't anything entered.")
-    // } else {
-        //event.preventDefault();
-        localStorage.setItem("time-block", eventTextField)
-        //timeBlock.classList.add('hide')
-        timeBlock.append('<p class="col-8 time-block present">' + "test text" + '</p>')
+  // if (eventTextField === null) {
+  //     alert("Oops! It looks like there wasn't anything entered.")
+  // } else {
+  //event.preventDefault();
+  var eventText = localStorage.setItem("time-block", eventTextField);
+  //timeBlock.classList.add('hide')
+  timeBlock.append('<p class="col-8 time-block present">' + eventText + "</p>");
 }
 
-console.log(eventTextField)
-
-
+console.log(eventTextField);
