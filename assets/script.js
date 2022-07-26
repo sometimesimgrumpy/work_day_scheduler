@@ -54,19 +54,16 @@ function currentTimeBlock() {
 }
 
 //show an enterable field for adding info
-//Functional save button
-var eventTextField = document.getElementsByName("time-block-text").value;
-var timeBlock = document.getElementById("time-block");
-var saveBtn = document.getElementById("saveBtn");
-saveBtn.addEventListener("click", getEventText);
+// jquery for input
+var timeBlockText = $(".time-block-text").val();
+console.log(timeBlockText);
+//var saveBtn = document.getElementById("saveBtn");
 
-// use jquery append - https://api.jquery.com/append/
-
-function getEventText() {
-  var eventText = localStorage.setItem("eventTextField", eventTextField);
-  console.log(eventText);
-  //timeBlock.classList.add('hide')
-  timeBlock.append(
-    '<div class="col-8 time-block present">' + eventText + "</div>"
-  );
+function saveEvent() {
+  localStorage.setItem("event", JSON.stringify(timeBlockText));
 }
+
+// use jquery click function
+$(".saveBtn").click(function () {
+  saveEvent();
+});
