@@ -15,12 +15,12 @@ function currentTime() {
 
 //setInterval(currentTimeBlock, 60000); //calls by minute for clarity on console log
 
-//show current time on the divs
+//show current time on the divs - https://developer.mozilla.org/en-US/docs/Web/API/DOMTokenList/toggle
 
 function currentTimeBlock() {
   const baseTime = 8;
 
-  var timeBlockEl = document.getElementsbyClassName("time-block");
+  var timeBlockEl = document.getElementsByClassName("time-block");
   var timeBlockCount = timeBlockEl.length;
   var timeSegments = new Array(timeBlockCount);
 
@@ -40,11 +40,13 @@ function currentTimeBlock() {
 
     if (currentHour < scheduleHour) {
       scheduleBlockClass.toggle("future", true);
-    } else if (currentHour > ScheduleHour) {
+      scheduleBlockClass.toggle("time-block-text", true);
+    } else if (currentHour > scheduleHour) {
       scheduleBlockClass.toggle("past", true);
       scheduleBlockClass.toggle("present", false);
     } else {
       scheduleBlockClass.toggle("present", true);
+      scheduleBlockClass.toggle("time-block-text", true);
       scheduleBlockClass.toggle("future", false);
     }
   }
@@ -62,7 +64,8 @@ function getEventText() {
   //     alert("Oops! It looks like there wasn't anything entered.")
   // } else {
   //event.preventDefault();
-  var eventText = localStorage.setItem("time-block", eventTextField);
+
+  var eventText = localStorage.setItem(timeBlock, eventTextField);
   //timeBlock.classList.add('hide')
   timeBlock.append('<p class="col-8 time-block present">' + eventText + "</p>");
 }
