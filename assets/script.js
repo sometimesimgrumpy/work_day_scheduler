@@ -44,6 +44,7 @@ function currentTimeBlock() {
     } else if (currentHour > scheduleHour) {
       scheduleBlockClass.toggle("past", true);
       scheduleBlockClass.toggle("present", false);
+      scheduleBlockClass.toggle("unavailable", true);
     } else {
       scheduleBlockClass.toggle("present", true);
       scheduleBlockClass.toggle("time-block-text", true);
@@ -59,15 +60,13 @@ var timeBlock = document.getElementById("time-block");
 var saveBtn = document.getElementById("saveBtn");
 saveBtn.addEventListener("click", getEventText);
 
+// use jquery append - https://api.jquery.com/append/
+
 function getEventText() {
-  // if (eventTextField === null) {
-  //     alert("Oops! It looks like there wasn't anything entered.")
-  // } else {
-  //event.preventDefault();
-
-  var eventText = localStorage.setItem(timeBlock, eventTextField);
+  var eventText = localStorage.setItem("eventTextField", eventTextField);
+  console.log(eventText);
   //timeBlock.classList.add('hide')
-  timeBlock.append('<p class="col-8 time-block present">' + eventText + "</p>");
+  timeBlock.append(
+    '<div class="col-8 time-block present">' + eventText + "</div>"
+  );
 }
-
-console.log(eventTextField);

@@ -60,6 +60,11 @@ textarea {
   color: white;
 }
 
+/* past events can't be typed into */
+.unavailable {
+  pointer-events: none;
+}
+
 .saveBtn {
   border-left: 1px solid black;
   border-top-right-radius: 15px;
