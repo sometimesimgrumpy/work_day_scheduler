@@ -53,30 +53,32 @@ function currentTimeBlock() {
   }
 }
 
-// use jquery click function
-$(".saveBtn").click(function () {
-  //var timeBlockText = $(".time-block-text").val();
-  var prevElSib = this.previousElementSibling.value;
-  //console.log(prevElSib);
-  var id = this.id;
-  localStorage.setItem(id, prevElSib);
-});
-
 //create array and loop for save buttons
 var btnEl = document.getElementsByClassName("saveBtn");
-var btnArrayLength = $(".saveBtn").length;
+var btnArrayLength = btnEl.length;
 var btnArray = new Array(btnArrayLength);
 
 for (var i = 0; i < btnArrayLength; i++) {
   btnArray[i] = btnEl[i].id;
 }
 
+// use jquery click function
+$(".saveBtn").click(function () {
+  //var timeBlockText = $(".time-block-text").val();
+  var eventInput = this.previousElementSibling.value;
+  //console.log(prevElSib);
+  var id = this.id;
+  localStorage.setItem(id, eventInput);
+});
+
 //get the time blocks and the saved text to display
-var textAreaBlock = $(".time-block");
-var savedTextEvent = localStorage.getItem(btnArray[j]);
+//var textAreaBlock = $(".time-block");
+//var savedTextEvent = localStorage.getItem(btnArray[j]);
 
 for (var j = 0; j < btnArrayLength; j++) {
-  if (savedTextEvent != null) {
-    textAreaBlock[j].append(document.createTextNode(savedTextEvent));
+  if (localStorage.getItem(btnArray[j]) != null) {
+    timeBlockEl[j].append(
+      document.createTextNode(localStorage.getItem(btnArray[j]))
+    );
   }
 }
