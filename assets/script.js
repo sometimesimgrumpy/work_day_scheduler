@@ -44,7 +44,8 @@ function currentTimeBlock() {
     } else if (currentHour > scheduleHour) {
       scheduleBlockClass.toggle("past", true);
       scheduleBlockClass.toggle("present", false);
-      //scheduleBlockClass.toggle("unavailable", true);
+      //comment out line 48 to test functionality if after 6:00pm
+      scheduleBlockClass.toggle("unavailable", true);
     } else {
       scheduleBlockClass.toggle("present", true);
       scheduleBlockClass.toggle("time-block-text", true);
