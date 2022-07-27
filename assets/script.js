@@ -16,11 +16,11 @@ function currentTime() {
 //setInterval(currentTimeBlock, 60000); //calls by minute for clarity on console log
 
 //show current time on the divs - https://developer.mozilla.org/en-US/docs/Web/API/DOMTokenList/toggle
+var timeBlockEl = document.getElementsByClassName("time-block");
 
 function currentTimeBlock() {
   const baseTime = 8;
 
-  var timeBlockEl = document.getElementsByClassName("time-block");
   var timeBlockCount = timeBlockEl.length;
   var timeSegments = new Array(timeBlockCount);
 
@@ -44,7 +44,7 @@ function currentTimeBlock() {
     } else if (currentHour > scheduleHour) {
       scheduleBlockClass.toggle("past", true);
       scheduleBlockClass.toggle("present", false);
-      scheduleBlockClass.toggle("unavailable", true);
+      //scheduleBlockClass.toggle("unavailable", true);
     } else {
       scheduleBlockClass.toggle("present", true);
       scheduleBlockClass.toggle("time-block-text", true);
@@ -53,17 +53,30 @@ function currentTimeBlock() {
   }
 }
 
-//show an enterable field for adding info
-// jquery for input
-var timeBlockText = $(".time-block-text").val();
-console.log(timeBlockText);
-//var saveBtn = document.getElementById("saveBtn");
-
-function saveEvent() {
-  localStorage.setItem("event", JSON.stringify(timeBlockText));
-}
-
 // use jquery click function
 $(".saveBtn").click(function () {
-  saveEvent();
+  //var timeBlockText = $(".time-block-text").val();
+  var prevElSib = this.previousElementSibling.value;
+  //console.log(prevElSib);
+  var id = this.id;
+  localStorage.setItem(id, prevElSib);
 });
+
+//create array and loop for save buttons
+var btnEl = document.getElementsByClassName("saveBtn");
+var btnArrayLength = $(".saveBtn").length;
+var btnArray = new Array(btnArrayLength);
+
+for (var i = 0; i < btnArrayLength; i++) {
+  btnArray[i] = btnEl[i].id;
+}
+
+//get the time blocks and the saved text to display
+var textAreaBlock = $(".time-block");
+var savedTextEvent = localStorage.getItem(btnArray[j]);
+
+for (var j = 0; j < btnArrayLength; j++) {
+  if (savedTextEvent != null) {
+    textAreaBlock[j].append(document.createTextNode(savedTextEvent));
+  }
+}
